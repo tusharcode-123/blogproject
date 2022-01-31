@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}User-Posts | Blog{% endblock %}
+{% block content %}
+
+<div class="small-container">
+    <h2 class="title">{{request.user.name}} Posts</h2>
+    <div class="row">
+        {% for post in All_Post %}
+        <div class="col-4">
+            {% if post.image %}
+            <a href="{% url 'PostApp:PostDetail' post.id %}"><img src="{{ post.image.url }}"></a>
+            {% endif %}
+            <h4>{{post.title}}</h4>
+            <p>{{post.body|slice:":50"}}</p>
+            <div class="read-more">
+                <a href="{% url 'PostApp:PostDetail' post.id %}" class="btn">Read More</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+<div class="pageclass">
+    {% if All_Post.has_other_pages %}
+        {% if All_Post.has_previous %}
+        <a href="?page={{All_Post.previous_page_number}}"><span>&#x2190;</span></a>
+        {% else %}
+          <a href=""><span>&#x2190;</span></a>
+        {% endif %}
+            {% for i in All_Post.paginator.page_range %}
+            {% if All_Post.number == i %}
+            <a href=""><span>{{i}}</span></a>
+            {% else %}
+            <a href="?page={{i}}"><span>{{i}}</span></a>
+            {% endif %}
+            {% endfor %}
+        {% if All_Post.has_next %}
+        <a href="?page={{All_Post.next_page_number}}"><span>&#8594;</span></a>
+        {% else %}
+        <a href=""><span>&#8594;</span></a>
+        {% endif %}
+    {% endif %}
+</div>
+</div>
+{% endblock %}

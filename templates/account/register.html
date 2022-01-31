@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Register | Blog{% endblock %}
+{% block content %}
+    <div class="contect-page">
+        <div class="container">
+            <div class="register">
+            <div class="row">
+                <div class="login-form">
+                    <h2>Sign Up</h2>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <input type="text" name="name" placeholder="Name" required>
+                        <input type="email" name="email" placeholder="Email" required>
+                        <input type="password" name="password" placeholder="Password" required>
+                        <input type="password" name="repeat_password" placeholder="Repeat Password" required>
+                        <button type="submit" class="batton">Register</button>
+                        <br>
+                        <a href="{% url 'Account:login' %}">I am Already a member</a>
+                    </form>
+                </div>
+                <img src="{% static 'images/login.jpg' %}" alt="">
+            </div>
+        </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+   

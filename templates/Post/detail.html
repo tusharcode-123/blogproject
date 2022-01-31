@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}Detail | Blog{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="small-container single-post">
+        <div class="row">
+            <div class="col-2">
+                <img src="{{postdetail.image.url}}" height="500px" width="500px">
+            </div>
+            <div class="col-2">
+                {% if fav %}
+                <a href="{% url 'PostApp:ShowLike' %}" class="btn">Remove Favourties</a>
+                {% else %}
+                <a href="{% url 'PostApp:add_fav' postdetail.id %}" class="btn">Add to Favourties</a>
+                {% endif %}
+                <h3>Post Name</h3>
+                <p>{{postdetail.title}}</p>
+                <br>
+                <h3>Blog Details</h3>
+                <p>{{postdetail.body}}</p>
+                <br>
+                <h3>Author</h3>
+                <p>{{postdetail.author.name}}</p>
+                <br>
+                <h3>Created</h3>
+                <p>{{postdetail.created}}</p>
+                {% if user.id == postdetail.author.id %}
+                <a href="{% url 'PostApp:UpdatePost' postdetail.id %}"><button type="submit"
+                        class="btn">Update</button></a>
+                <a href="{% url 'PostApp:DeletePost' postdetail.id %}"><button type="submit"
+                        class="btn">Delete</button></a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="small-container">
+        <h2 class="title">Related Posts</h2>
+        <div class="row">
+            {% for post in relatedpost %}
+            <div class="col-4">
+                {% if post.image %}
+                <a href="{% url 'PostApp:PostDetail' post.id %}"><img src="{{ post.image.url }}"></a>
+                {% endif %}
+                <h4>{{post.title}}</h4>
+                <p>{{post.body|slice:":50"}}</p>
+                <div class="read-more">
+                    <a href="{% url 'PostApp:PostDetail' post.id %}" class="btn">Read More</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <h2>Add comment</h2>
+            <div class="row allcomments">
+                {% for c in postdetail.comment.all %}
+                <div class="comments">
+                    <img src="{{c.image.url}}">
+                    <div class="comments-detail">
+                        <h3>{{c.name}}</h3>
+                        <p>{{c.message}}
+                        </p>
+                        <div class="commentdate">
+                            {% if user.id == c.author.id %}
+                            <a href="{% url 'Comment:CommentUpdate' c.id %}"><button type="submit"
+                                    class="commentbtn">Update</button></a>&nbsp;&nbsp;
+                            <a href="{% url 'Comment:CommentDelete' c.id %}"><button type="submit"
+                                    class="commentbtn">Delete</button></a>
+                            {% endif %}
+                            <p class="date"> {{c.created}} </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="form">
+            <h2>leave a comment</h2>
+            <br>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <label for="Email">Name</label>
+                <input type="text" name="name" required>
+                <label for="Message">Message</label>
+                <textarea cols="30" rows="10" name="message" required></textarea>
+                <button type="submit" class="batton">Send Message</button>
+            </form>
+        </div>
+
+
+    </div>
+</div>
+
+{% endblock %}

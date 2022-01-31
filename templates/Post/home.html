@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Home | Blog{% endblock %}
+{% block content %}
+<div class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <h1>Workout<br>A new Style</h1>
+                <p>Lorem Ipsum has been the industry's standard dummy text ever since <br> the 1500s, when an
+                    unknown printer took a galley of type and scrambled it to make a</p>
+                <a href="{% url 'PostApp:show' %}" class="btn">Explore Now &#8594;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="small-container">
+    <h2 class="title">Letest Posts</h2>
+    <div class="row">
+        {% for post in LetestPost %}
+        <div class="col-4">
+            {% if post.image %}
+            <a href="{% url 'PostApp:PostDetail' post.id %}"><img src="{{ post.image.url }}"></a>
+            {% endif %}
+            <h4>{{post.title}}</h4>
+            <p>{{post.body|slice:":50"}}</p>
+            <div class="read-more">
+                <a href="{% url 'PostApp:PostDetail' post.id %}" class="btn">Read More</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

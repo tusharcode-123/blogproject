@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Post | Blog{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+</head>
+
+<Body>
+    <div class="header">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <a href="home.html"><img src="{% static 'images/logo.png' %}" width="125px"></a>
+                </div>
+                <nav>
+                    <ul id="menuitem">
+                        {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'About_Contect:Home' %}">Home</a></li>
+                        <li><a href="{% url 'PostApp:CreatePost' %}">Create</a></li>
+                        <li><a href="{% url 'PostApp:show' %}">Blog Post</a></li>
+                        <li><a href="{% url 'PostApp:UserPost' %}">{{request.user.name}} Post</a></li>
+                        <li><a href="{% url 'About_Contect:About' %}">About</a></li>
+                        <li><a href="{% url 'About_Contect:contect' %}">Contact</a></li>
+                        <li><a href="{% url 'PostApp:ShowLike'%}">Login As:<b>{{request.user.name}}</b></a> </li>
+                        <li><a href="{% url 'Account:logout' %}">LogOut</a></li>
+                        {% else %}
+                        <li><a href="{% url 'Account:login' %}">Login</a></li>
+                        <li><a href="{% url 'Account:register' %}">Register</a></li>
+                        {% endif %}
+                        
+                    </ul>
+                </nav>
+                <img src="{% static 'images/menu.png' %}" class="menu-icon" onclick="menutoggle()">
+            </div>
+        </div>
+    </div>
+
+    {% block content %}
+    {% endblock %}
+    
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col-1">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora ipsam quas fuga. Qui ratione
+                        consequuntur sint vero adipisci deleniti, natus, delectus soluta magni ad quasi quidem dolores
+                        nemo hic aliquid?</p>
+                </div>
+                <div class="footer-col-3">
+                    <h3>Usefull Link</h3>
+                    <ul>
+                        <li>Coupons</li>
+                        <li>Blog Post</li>
+                        <li>Return Policy</li>
+                        <li>join Affiliate</li>
+                    </ul>
+                </div>
+                <div class="footer-col-4">
+                    <h3>Follow us</h3>
+                    <ul>
+                        <li>Facebook</li>
+                        <li>Twitter</li>
+                        <li>Instagram</li>
+                        <li>Youtube</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright">Copyright 2022</p>
+        </div>
+    </div>
+    <script>
+        var m = document.getElementById("menuitem");
+
+        m.style.maxHeight = "0px";
+        function menutoggle() {
+            console.log("clicked")
+            if (m.style.maxHeight == "0px") {
+                m.style.maxHeight = "200px";
+            }
+            else {
+                m.style.maxHeight = "0px";
+            }
+        }
+    </script>
+</body>
+
+</html>

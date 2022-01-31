@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Delete-Comment | Blog{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-2">
+            <img src="{% static 'images/delete.jpg' %}" alt="">
+        </div>
+        <div class="col-2">
+            <form method="POST">
+                {% csrf_token %}
+                <h2>are you sure to delete Comment?</h2>
+                <br>
+                <br>
+                <a href="{% url 'PostApp:show' %}" class="delete-form">cancel</a>
+                <a href=""><button type="submit" class="delete-form">Delete</button></a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Post | Blog{% endblock %}
+{% block content %}
+
+
+<div class="container">
+    <div class="col-2">
+        <div class="row">
+            <div class="col-2">
+                <br>
+                <h2>Commented Post List</h2>
+                <br>
+                <div class="allcommentpost">
+                    {% for i in com %}
+                    {% if blog.email == i.author.email %}
+                    <div class="profile">
+                        <h4>Post Name : </h4>&nbsp;&nbsp;
+                        <p><a href="{% url 'PostApp:PostDetail' i.post.id %}">{{i.post.title}}</a></p>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-2">
+                <br>
+                <h2>Likes Post List</h2>
+                <br>
+                <div class="alllikepost">
+                    {% for i in new %}
+                    <div class="profile">
+                        <h4>Post Name : </h4>&nbsp;&nbsp;
+                        <p><a href="{% url 'PostApp:PostDetail' i.id %}">{{i.title}}</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="{% url 'PostApp:add_fav' i.id %}" class="likeremovebtn">Remove</a>
+                        </p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

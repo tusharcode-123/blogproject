@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Update-Post | Blog{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="small-container single-post">
+            <div class="row">
+                <div class="col-2">
+                    <img src="{{blog.image.url}}" height="500px" width="500px">
+                    
+                </div>
+                <div class="col-2">
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <label for="title">Post Title</label>
+                        <input type="text" value="{{blog.title}}" name="title">
+                        <label for="body">Post Body</label>
+                        <textarea cols="30" rows="10" name="body">{{blog.body}}</textarea>
+                        <label for="Post Image">Image</label>
+                        <input type="file" accept="image/*" name="image" style="border: none;padding: 0;">
+                        <button type="submit" class="batton">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

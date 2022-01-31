@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}About | Blog{% endblock %}
+{% block content %}
+    <div class="container">
+            <div class="row">
+                <div class="col-2">
+                    <img src="{% static 'images/slider-dec-v3.png' %}">
+                </div>
+                <div class="col-2 about">
+                    <h1>Workout<br>A new Style</h1>
+                    <p>Lorem Ipsum has been the industry's standard dummy text ever since <br> the 1500s, when an
+                        unknown printer took a galley of type and scrambled it to make a</p>
+                    <a href="{% url 'PostApp:show' %}" class="btn">Explore Now &#8594;</a>
+                </div>
+            </div>
+        </div>
+    <div class="team">
+        <div class="small-container">
+            <h2 class="title">Our Team</h2>
+            <div class="row">
+                {% for a in about_as %}
+                <div class="col-3">
+                    <img src="{{a.image.url}}">
+                    <h3>{{a.Name}}</h3>
+                    <p>{{a.Discription}}</p>
+               </div>
+               {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
